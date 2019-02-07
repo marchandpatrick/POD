@@ -1,0 +1,14 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title = "{POD}: Probability of Detection for Qualitative PCR Methods",
+         author = c(person("Markus", "Boenn")),
+         year = year,
+         note = note,
+         url = "https://CRAN.R-project.org/package=POD",
+         institution = "State Office for Consumer Protection Saxony-Anhalt",
+        address = "Freiimfelder Str. 68, 06112 Halle (Saale), Germany",
+        keywords = "pod, lod, pcr",
+        email = "markus.boenn@sachsen-anhalt.de"
+         )
