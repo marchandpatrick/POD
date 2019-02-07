@@ -2,9 +2,9 @@
 #' @description Export formatted data or code for use by other platforms
 #'
 #' @param obj A list returned by \code{\link{analyzeSingleLab}}.
-#' @param dest The path to write the excel makro to.
+#' @param dest The path to write the excel macro to.
 #'
-#' @details The output of exportQuodata can be used on the QuoData website (<http://quodata.de/content/validation-qualitative-pcr-methods-single-laboratory>).
+#' @details The output of exportQuodata can be used on the QuoData website (\url{http://quodata.de/content/validation-qualitative-pcr-methods-single-laboratory}).
 #'
 #' @return Nothing is returned.
 #'
