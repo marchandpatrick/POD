@@ -17,29 +17,40 @@
 #' )
 #' obj <- analyzeSingleLab(x=x)
 #' print(obj)
+#'
+#' obj <- analyzeSingleLab(x=x, qLOD=c(50, 70, 95))
+#' print(obj)
 
 
 print.pod <- function(x, ...){
     obj <- x
-  cat("\n#######################\nSummary of POD analysis\n#######################\n\n")
-  cat("Data:\n")
-  print(round(obj$x,3))
-  cat("\n")
-  #cat("LOD [95 % CI]: ", sprintf("%s: %s", names(x$const), x$const), "\n\n")
-  
-  cat("Full GLM:\n")
-  fit <- obj$fit.glm.full
-  tmp <- round(unlist(fit$LOD), 3)
-  cat("\t LOD95 [95% CI]: ", sprintf("%.3f [%.3f,%.3f]", tmp[1], tmp[2], tmp[3]), "\n")
-  cat("\t", sprintf("lambda=%.3f, b=%.3f", fit$lambda, fit$b), "\n")
-  cat("\tWarnings:\n"); for(w in fit$warn){cat("\t\t", w, "\n", sep="")}
-  cat("\n")
-  
-  cat("Simplified GLM (setting 'b' to fixed value):\n")
-  fit <- obj$fit.glm.simple
-  tmp <- round(unlist(fit$LOD), 3)
-  cat("\t LOD95 [95% CI]: ", sprintf("%.3f [%.3f,%.3f]", tmp[1], tmp[2], tmp[3]), "\n")
-  cat("\t", sprintf("lambda=%.3f, b=%.3f", fit$lambda, fit$b), "\n")
-  cat("\tWarnings:\n"); for(w in fit$warn){cat("\t\t", w, "\n", sep="")}
-  cat("\n")
+    .shift <- function(k){ return( c( " ", "  ", "   ", "    ", "     ", "      " )[k] ) }
+    
+    cat("\n#######################\nSummary of POD analysis\n#######################\n\n")
+    cat("Data:\n")
+    print(round(obj$x,3))
+    cat("\n")
+    
+    HEAD <- c("Full GLM", "Simplified GLM (setting 'b' to fixed value)")
+    OBJ <- list(obj$fit.glm.full, obj$fit.glm.simple)
+    for( i in 1:2 ){
+        cat(HEAD[i], ":\n", sep="")
+        fit <- OBJ[[i]]
+        tmp <- round(unlist(fit$LOD), 3)
+        k <- 2
+        if(nrow(tmp)>1){
+            k <- 4
+            cat(.shift(2), "LOD:\n", sep="")
+        }
+        for(rn in rownames(tmp)){
+            tmp0 <- tmp[rn,]
+            cat(.shift(k), "LOD", rn, " [95% CI]: ", sprintf("%.3f [%.3f;%.3f]", tmp0[1], tmp0[2], tmp0[3]), "\n", sep="")
+        }
+
+        cat(.shift(2), sprintf("lambda=%.3f; b=%.3f", fit$lambda, fit$b), "\n", sep="")
+        cat(.shift(2), "Warnings:\n", sep=""); for(w in fit$warn){cat(.shift(4), w, "\n", sep="")}
+        cat("\n")
+    }
+     cat("#######################\n\n")
 }
+

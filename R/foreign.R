@@ -5,8 +5,9 @@
 #' @param dest The path to write the excel macro to.
 #'
 #' @details The output of exportQuodata can be used on the QuoData website (\url{http://quodata.de/content/validation-qualitative-pcr-methods-single-laboratory}).
+#' Function \code{exportExcelMacro()} creates an Excel macro in the specified directory. Existing files will not be overwritten!
 #'
-#' @return Nothing is returned.
+#' @return Nothing is returned by \code{exportQuodata()} and \code{exportSAS()}. Function \code{exportExcelMacro()} returns a boolean, \code{FALSE} if a file with name 'pod.xlsm' already exists, \code{TRUE} otherwise.
 #'
 #' @name foreign
 #' @aliases exportQuodata exportSAS exportExcelMacro
