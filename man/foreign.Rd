@@ -16,16 +16,17 @@ exportExcelMacro(dest)
 \arguments{
 \item{obj}{A list returned by \code{\link{analyzeSingleLab}}.}
 
-\item{dest}{The path to write the excel makro to.}
+\item{dest}{The path to write the excel macro to.}
 }
 \value{
-Nothing is returned.
+Nothing is returned by \code{exportQuodata()} and \code{exportSAS()}. Function \code{exportExcelMacro()} returns a boolean, \code{FALSE} if a file with name 'pod.xlsm' already exists, \code{TRUE} otherwise.
 }
 \description{
 Export formatted data or code for use by other platforms
 }
 \details{
-The output of exportQuodata can be used on the QuoData website (<http://quodata.de/content/validation-qualitative-pcr-methods-single-laboratory>).
+The output of exportQuodata can be used on the QuoData website (\url{http://quodata.de/content/validation-qualitative-pcr-methods-single-laboratory}).
+Function \code{exportExcelMacro()} creates an Excel macro in the specified directory. Existing files will not be overwritten!
 }
 \examples{
 x <- cbind(

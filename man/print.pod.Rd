@@ -25,4 +25,7 @@ x <- cbind(
 )
 obj <- analyzeSingleLab(x=x)
 print(obj)
+
+obj <- analyzeSingleLab(x=x, qLOD=c(50, 70, 95))
+print(obj)
 }

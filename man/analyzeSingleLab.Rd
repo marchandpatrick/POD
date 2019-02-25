@@ -5,7 +5,7 @@
 \title{Analyze Single Lab Qualitative PCR Outcomes}
 \usage{
 analyzeSingleLab(x = NULL, X = NULL, S = NULL, N = NULL,
-  qLOD = 95, b = 1, sigma = 0.35)
+  qLOD = 95, b = 1)
 }
 \arguments{
 \item{x}{A matrix or dataframe with columns 'X', 'S' and 'N'.}
@@ -19,15 +19,12 @@ analyzeSingleLab(x = NULL, X = NULL, S = NULL, N = NULL,
 \item{qLOD}{The quantile(s) for the Limit Of Detection (LOD). Divided by \eqn{100} if greater than one.}
 
 \item{b}{Fixed value for the corrective parameter}
-
-\item{sigma}{Fixed value for the between lab noise \ifelse{html}{\out{&sigma;<sub>L</sub>}}{\eqn{\sigma_L}}}
 }
 \value{
 A list with following items
 \describe{
 \item{x}{Input data plus extra columns}
 \item{b}{The parameter \eqn{b}, as provided by the user}
-\item{sigma}{The parameter \ifelse{html}{\out{&sigma;<sub>L</sub>}}{\eqn{\sigma_L}}, as provided by the user}
 \item{fit.glm.simple}{Results for the simplified GLM}
 \item{fit.glm.full}{Results for the full GLM}
 }
@@ -45,12 +42,8 @@ where "fit.glm.simple" and "fit.glm.full" are lists with the following parameter
 Compute the POD curve and the LOD value to validate a qualitative PCR method of a single laboratory.
 }
 \details{
-Parameter \ifelse{html}{\out{&sigma;<sub>L</sub>}}{\eqn{\sigma_L}} is required to determine the confidence interval of the lobjimit of detection (LOD) at a given quantile. It has been assessed empirically to be approximately \eqn{0.34}, leading to similar results as obtained from the original implementation. The parameter can be modified by the user.
 According to the suggestion of Uhlig et al. (2015), the corrective parameter \eqn{b} is set to \eqn{1} if it is close to \eqn{1} (simplified fit). However, if sensitivity is better than achievable according to the theoretical POD curve or average amplification probability is higher at higher dilution levels than at lower dilution levels, the \eqn{b} is estimated from the data (full fit). 
 The value of \eqn{b} can be changed by the user. However, it is not recommended to do so.
-}
-\note{
-A warning like \sQuote{glm.fit: fitted probabilities numerically 0 or 1 occurred} might appear during GLM computation. Can be ignored in most cases.
 }
 \examples{
 x <- cbind(
