@@ -56,8 +56,8 @@ analyzeSingleLab <- function(x=NULL, X=NULL, S=NULL, N=NULL, qLOD=95, b=1){
       ilink <- family(GLM)$linkinv
       fit <- se.fit <- NULL
       aux <- v
-      if(is.null(v)){ aux <- c(seq(min(x$X), max(x$X), length = 100), seq(0.5, 1.5, 0.01)) }
-      pd <- data.frame(X = sort(aux), b=b)
+      if(is.null(v)){ aux <- c(seq(min(x$X), max(x$X), length = 100), x$X, seq(0.5, 1.5, 0.01)) }
+      pd <- data.frame(X = sort(unique(aux)), b=b)
       pd <- cbind(pd, predict(GLM, pd, type = 'link', se.fit = TRUE)[1:2])
       pd <- transform(pd, Fitted = ilink(fit), Upper = ilink(fit + (1.96 * se.fit)), Lower = ilink(fit - (1.96 * se.fit)))
     return(pd[, c("X", "Upper", "Lower")])
@@ -71,6 +71,7 @@ analyzeSingleLab <- function(x=NULL, X=NULL, S=NULL, N=NULL, qLOD=95, b=1){
         for( iq in seq(qLOD) ){
             up <- cip95[which.min( abs(cip95$Upper-qLOD[iq]) )+c(-1,0,1), 1]
             lo <- cip95[which.min( abs(cip95$Lower-qLOD[iq]) )+c(-1,0,1), 1]
+            up <- up[!is.na(up)]; lo <- lo[!is.na(lo)]
             cip95up <- .getcip95(mod, b, seq(min(up), max(up), 0.001))
             cip95lo <- .getcip95(mod, b, seq(min(lo), max(lo), 0.001))
             LODUL[iq] <- cip95up[which.min( abs(cip95up$Upper-qLOD[iq]) ), 1]
