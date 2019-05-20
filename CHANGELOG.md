@@ -1,0 +1,69 @@
+
+# [190506] Markus Boenn
+Version bump: 1.1.3
+## Excel makro
+
+- enforce slash at end of dirnames
+
+## Package
+
+- fixed Rmarkdown issue that prevents vignette from compilation (Windows only)
+
+## plotPOD
+
+- added (optional) digital watermark
+
+
+# [190416] Markus Boenn
+## analyzeSingleLab, .getcip95
+-- fixed order of lower and upper boundary of CI
+-- set 'length = 1000' (has been 100 previously)
+-- step:=1 (has been 0.001 previously)
+-- these settings reproduce LOD CI for grohmann(3) almost exactly
+
+# [190404] Markus Boenn
+## Excel macro
+- significant changes
+-- temporary directory is created to maintain temporary files
+-- auto detection of numer of DNA concentrations
+-- support for user defined LOD quantiles
+## plotPOD()
+- fixed typo in the details section
+## vignette
+- added how-to vignette for Excel macro
+
+
+# [190402] Markus Boenn
+## zzz.R
+- Modified startup message
+
+
+# [190225] Markus Boenn
+## analyzeSingleLab()
+- Changed computation of the confidence interval of the LOD. Computation is now for the CI, not for the prediction interval with parameter 'sigma'. Parameter 'sigma' is now obsolete and has been dropped from the parameter list of the function.
+- extended capability of internal function '.getcip95()'
+## plotPOD()
+- allow to show confidence interval in graph when only one LOD is shown at all (default, can be turned off)
+- adapted manual accordingly
+- other minor changes in manual
+
+
+
+
+# [190215] Markus Boenn
+## plotPOD()
+- fixed issue when checking intersect of vector 'qLOD' and 'rownames(LodList)'
+- listing now all options available for parameter 'model'
+- don't show the difference between the two kinds of model parameter 'b' anymore, as the values are visible from 'print.pod()'
+
+
+# [190214] Markus Boenn
+## print.pod()
+- changed ',' in confidence interval to ';'
+- reduced code redundancy
+- support multiple quantiles of LOD
+- additional example
+- seperated 'lambda' and 'b' by ';'
+
+## foreign.R
+- more details about 'exportExcelMacro()' in manpages
