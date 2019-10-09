@@ -17,18 +17,26 @@
 #' )
 #' obj <- analyzeSingleLab(x=x)
 #' print(obj)
+#' # or just
+#' obj
 #'
 #' obj <- analyzeSingleLab(x=x, qLOD=c(50, 70, 95))
-#' print(obj)
+#' obj
 
 
 print.pod <- function(x, ...){
+    if(class(x) != "pod"){
+        warning("Variable 'obj' is not of class 'pod'. Did you use 'analyzeSingleLab' to generate 'obj'?")
+        return(NULL)
+    }
+
     obj <- x
     .shift <- function(k){ return( c( " ", "  ", "   ", "    ", "     ", "      " )[k] ) }
     
     cat("\n#######################\nSummary of POD analysis\n#######################\n\n")
     cat("Data:\n")
-    print(round(obj$x,3))
+    xtmp <- round(obj$x,3); colnames(xtmp)[4] <- "ROD"
+    print(xtmp)
     cat("\n")
     
     HEAD <- c("Full GLM", "Simplified GLM (setting 'b' to fixed value)")

@@ -44,6 +44,13 @@ Compute the POD curve and the LOD value to validate a qualitative PCR method of 
 \details{
 According to the suggestion of Uhlig et al. (2015), the corrective parameter \eqn{b} is set to \eqn{1} if it is close to \eqn{1} (simplified fit). However, if sensitivity is better than achievable according to the theoretical POD curve or average amplification probability is higher at higher dilution levels than at lower dilution levels, the \eqn{b} is estimated from the data (full fit). 
 The value of \eqn{b} can be changed by the user. However, it is not recommended to do so.
+In particular unexperienced users struggle with decimal commas and decimal dots, transforming digits from strings into numeric values etc. To lower the burden, beginning with package version 1.2.0 this function automatically and only where necessary
+\itemize{
+  \item adds column names (with warning)
+  \item transforms values in all columns from factor or character into numeric values
+  \item thereby substituting decimal commas by decimal dots
+  \item transforms columns 'S' and 'N' to integer (\code{link{as.integer}})
+}
 }
 \examples{
 x <- cbind(

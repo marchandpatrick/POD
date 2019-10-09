@@ -5,7 +5,9 @@
 #' @param dest The path to write the excel macro to.
 #'
 #' @details The output of exportQuodata can be used on the QuoData website (\url{http://quodata.de/content/validation-qualitative-pcr-methods-single-laboratory}).
-#' Function \code{exportExcelMacro()} creates an Excel macro in the specified directory. Existing files will not be overwritten! To create the macro in the current directory (see \code{\link{getwd()}} and \code{\link{dir()}}) set destination to \code{""} (Windows) or \code{"."} (Linux), respectively.
+#' Function \code{exportExcelMacro()} creates an Excel macro in the specified directory. Existing files (older versions for instance) will not be overwritten! To create the macro in the current directory, set destination to \code{""} (Windows) or \code{"."} (Linux), respectively.
+#'
+#' @seealso \code{\link{getwd}}, \code{\link{dir}}
 #'
 #' @return Nothing is returned by \code{exportQuodata()} and \code{exportSAS()}. Function \code{exportExcelMacro()} returns a boolean, \code{FALSE} if a file with name 'pod.xlsm' already exists, \code{TRUE} otherwise.
 #'
@@ -66,9 +68,19 @@ proc logistic data=singlelab;
 #' @rdname foreign
 #' @export
 exportExcelMacro <- function(dest){
+    if( missing( dest ) ){
+        message(paste0("No destination specified, writing into current working directory (obtained from 'getwd()')."))
+        dest <- getwd()
+    }
+    if( ! file.exists( dest ) ){
+        warning(paste0("Unable to write into ", dest, ", directory does not exist."))
+        return(FALSE)
+    }
+
     dest <- path.expand(dest)
     fpath <- system.file(".", "pod.xlsm", package="POD")
     fpathdest <- file.path(dest, "pod.xlsm")
     cat("Creating a copy of Excel macro (", fpathdest, ")\n", sep="")
 return(file.copy(fpath, fpathdest))
 }
+

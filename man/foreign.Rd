@@ -26,7 +26,7 @@ Export formatted data or code for use by other platforms
 }
 \details{
 The output of exportQuodata can be used on the QuoData website (\url{http://quodata.de/content/validation-qualitative-pcr-methods-single-laboratory}).
-Function \code{exportExcelMacro()} creates an Excel macro in the specified directory. Existing files will not be overwritten!
+Function \code{exportExcelMacro()} creates an Excel macro in the specified directory. Existing files (older versions for instance) will not be overwritten! To create the macro in the current directory, set destination to \code{""} (Windows) or \code{"."} (Linux), respectively.
 }
 \examples{
 x <- cbind(
@@ -38,4 +38,7 @@ obj <- analyzeSingleLab(x=x)
 exportQuodata(obj)
 
 
+}
+\seealso{
+\code{\link{getwd}}, \code{\link{dir}}
 }

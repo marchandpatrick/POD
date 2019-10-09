@@ -1,9 +1,41 @@
 
-# [190506] Markus Boenn
+
+# [191009] Markus Boenn
+Version bump: 1.2.0
+## analyzeSingleLab
+
+- automatic setting of input column names
+- automatic adjustment of decimal comma
+
+## printPod
+
+- check class of input object
+
+## plotPOD
+
+- check class of input object
+- optional addition of a unit to the LOD value
+- helper lines in gray80, lwd=0.5
+
+
+# [190611] Markus Boenn
+Version bump: 1.1.4
+## Excel macro
+
+- checking for existence of directories
+
+## exportExcelMacro
+
+- write into current wd if destination unspecified
+- return FALSE if destination not exists
+
+
+# [190507] Markus Boenn
 Version bump: 1.1.3
-## Excel makro
+## Excel macro
 
 - enforce slash at end of dirnames
+- checking for existence of directories
 
 ## Package
 

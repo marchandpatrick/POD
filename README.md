@@ -4,7 +4,7 @@
 This is the R package 'POD'.
 
 # Vignettes
-A tutorial is provided for the usage of the Excel macro
+A tutorial is provided for the usage of the Excel macro.
 
 ## Linux users
 To get vignettes under Linux, enter

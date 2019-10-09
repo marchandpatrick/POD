@@ -11,6 +11,13 @@
 #' @details 
 #' According to the suggestion of Uhlig et al. (2015), the corrective parameter \eqn{b} is set to \eqn{1} if it is close to \eqn{1} (simplified fit). However, if sensitivity is better than achievable according to the theoretical POD curve or average amplification probability is higher at higher dilution levels than at lower dilution levels, the \eqn{b} is estimated from the data (full fit). 
 #' The value of \eqn{b} can be changed by the user. However, it is not recommended to do so.
+#' In particular unexperienced users struggle with decimal commas and decimal dots, transforming digits from strings into numeric values etc. To lower the burden, beginning with package version 1.2.0 this function automatically and only where necessary
+#' \itemize{
+#'   \item adds column names (with warning)
+#'   \item transforms values in all columns from factor or character into numeric values
+#'   \item thereby substituting decimal commas by decimal dots
+#'   \item transforms columns 'S' and 'N' to integer (\code{link{as.integer}})
+#' }
 #' 
 #' @references
 #' Uhlig et al. Accred Qual Assur (2015) 20: 75. https://doi.org/10.1007/s00769-015-1112-9
@@ -91,7 +98,7 @@ analyzeSingleLab <- function(x=NULL, X=NULL, S=NULL, N=NULL, qLOD=95, b=1){
             return(obj)
         }else{
             if( length(X) != length(S) ){
-                warning("'X' and 'S' has to be of same length.")
+                warning("'X' and 'S' have to be of same length.")
                 return(obj)
             }
             if( (length(N)!=1 && length(N)!=length(X)) ){
@@ -106,12 +113,17 @@ analyzeSingleLab <- function(x=NULL, X=NULL, S=NULL, N=NULL, qLOD=95, b=1){
             return(obj)
         }
         if( length(intersect(colnames(x), .COLNAMES))<3 ){
-            warning("'x' must have columns 'X', 'S' and 'N'.")
-            return(obj)
+            warning("'x' must have columns 'X', 'S' and 'N'. Setting automatically.")
+            colnames(x)[1:3] <- .COLNAMES
         }
     }
 
     x <- as.data.frame(x[, .COLNAMES])
+    for( l in 1:ncol(x) ){
+        x[, l] <- as.numeric(sub(as.character(x[,l]), pattern=",", replacement="."))
+    }
+    x$S <- as.integer(x$S)
+    x$N <- as.integer(x$N)
     x$Y <- x$S/x$N
 
     # fit via glm (binomial, cloglog)

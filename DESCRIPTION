@@ -1,8 +1,8 @@
 Package: POD
 Type: Package
 Title: Probability of Detection for Qualitative PCR Methods
-Version: 1.1.3
-Date: 2019-05-17
+Version: 1.2.0
+Date: 2019-10-09
 Author: Markus Boenn (State Office for Consumer Protection Saxony-Anhalt, Germany)
 Maintainer: Markus Boenn <markus.boenn.sf@gmail.com>
 Description: This tool computes the probability of detection (POD) curve and the limit of detection (LOD), i.e. the number of copies of the target DNA sequence required to ensure a 95 % probability of detection (LOD95). Other quantiles of the LOD can be specified.
